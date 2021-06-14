@@ -7,4 +7,10 @@ export class HashService {
     const salt = await bcrypt.genSalt();
     return await bcrypt.hash(password, salt);
   }
+
+  async comparePassword(password, hash) {
+    const isMatch = await bcrypt.compare(password, hash);
+    console.log('IsMatch: ', isMatch);
+    return isMatch;
+  }
 }
