@@ -3,12 +3,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { HashService } from '../auth/hash.service';
+import { UserOauth } from './userOauth.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
+    @InjectRepository(UserOauth)
+    private usersOauthRepository: Repository<UserOauth>,
     private hashService: HashService,
   ) {}
   async createAndSave(username: string, password: string) {
@@ -16,6 +19,18 @@ export class UsersService {
     user.username = username;
     user.password = await this.hashService.hashPassword(password);
     return this.usersRepository.save(user);
+  }
+  async findOrCreateOauthUser(username: string, googleID: string) {
+    const userExist = await this.usersOauthRepository.find({
+      where: { googleID },
+    });
+    if (!userExist.length) {
+      const newUser = new UserOauth();
+      newUser.username = username;
+      newUser.googleID = googleID;
+      return this.usersOauthRepository.save(newUser);
+    }
+    return userExist[0];
   }
   findAll(): Promise<User[]> {
     return this.usersRepository.find();

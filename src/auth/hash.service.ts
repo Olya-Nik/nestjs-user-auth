@@ -9,8 +9,6 @@ export class HashService {
   }
 
   async comparePassword(password, hash) {
-    const isMatch = await bcrypt.compare(password, hash);
-    console.log('IsMatch: ', isMatch);
-    return isMatch;
+    return await bcrypt.compare(password, hash);
   }
 }

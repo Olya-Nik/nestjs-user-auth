@@ -30,4 +30,13 @@ export class AuthService {
       access_token: this.jwtService.sign(payload),
     };
   }
+
+  async loginGoogle(req: any) {
+    if (!req.user) {
+      return 'No such a user';
+    }
+    return {
+      user: req.user,
+    };
+  }
 }

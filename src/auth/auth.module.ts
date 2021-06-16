@@ -7,6 +7,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 import { JwtStrategy } from './jwt.strategy';
 import { HashService } from './hash.service';
+import { GoogleStrategy } from './google.strategy';
 
 @Module({
   imports: [
@@ -17,7 +18,13 @@ import { HashService } from './hash.service';
       signOptions: { expiresIn: '3600s' }, //TODO
     }),
   ],
-  providers: [AuthService, LocalStrategy, JwtStrategy, HashService],
+  providers: [
+    AuthService,
+    LocalStrategy,
+    JwtStrategy,
+    HashService,
+    GoogleStrategy,
+  ],
   exports: [AuthService],
 })
 export class AuthModule {}

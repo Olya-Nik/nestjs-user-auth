@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { User } from './users/user.entity';
+import { UserOauth } from './users/userOauth.entity';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { User } from './users/user.entity';
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: './data/__users.sqlite3',
-      entities: [User],
+      entities: [User, UserOauth],
       synchronize: true,
     }),
   ],
