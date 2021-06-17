@@ -20,14 +20,14 @@ export class UsersService {
     user.password = await this.hashService.hashPassword(password);
     return this.usersRepository.save(user);
   }
-  async findOrCreateOauthUser(username: string, googleID: string) {
+  async findOrCreateOauthUser(username: string, oauthID: string) {
     const userExist = await this.usersOauthRepository.find({
-      where: { googleID },
+      where: { oauthID },
     });
     if (!userExist.length) {
       const newUser = new UserOauth();
       newUser.username = username;
-      newUser.googleID = googleID;
+      newUser.oauthID = oauthID;
       return this.usersOauthRepository.save(newUser);
     }
     return userExist[0];

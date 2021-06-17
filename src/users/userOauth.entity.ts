@@ -9,5 +9,5 @@ export class UserOauth {
   username: string;
 
   @Column()
-  googleID: string;
+  oauthID: string;
 }

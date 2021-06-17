@@ -13,6 +13,9 @@ export class AuthService {
 
   async validateUser(username: string, password: string): Promise<any> {
     const user = await this.usersService.findOne(username);
+    if (!user) {
+      return null;
+    }
     const isRightPassword = await this.hashService.comparePassword(
       password,
       user.password,
@@ -31,7 +34,7 @@ export class AuthService {
     };
   }
 
-  async loginGoogle(req: any) {
+  async loginOauth(req: any) {
     if (!req.user) {
       return 'No such a user';
     }

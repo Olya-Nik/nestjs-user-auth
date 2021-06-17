@@ -8,6 +8,7 @@ import { jwtConstants } from './constants';
 import { JwtStrategy } from './jwt.strategy';
 import { HashService } from './hash.service';
 import { GoogleStrategy } from './google.strategy';
+import { FacebookStrategy } from './facebook.strategy';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { GoogleStrategy } from './google.strategy';
     JwtStrategy,
     HashService,
     GoogleStrategy,
+    FacebookStrategy,
   ],
   exports: [AuthService],
 })
